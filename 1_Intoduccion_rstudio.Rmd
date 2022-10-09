@@ -40,7 +40,7 @@ xaringanExtra::style_share_again(
 class: center, middle, titular
 background-size: contain
 
-<img src="img/see_azul.jpeg" width="200px"/>
+<img src="img/see_azul.jpeg" width="300px"/>
 # `r rmarkdown::metadata$title` 
 ## **`r rmarkdown::metadata$subtitle`**
 #### `r rmarkdown::metadata$author`
@@ -77,6 +77,27 @@ background-size: contain
 | 20:35 a 20:45 | Receso 2 |
 | 20:45 a 21:30 | Bloque 3 |
 
+
+---
+
+class: middle, center
+
+`r fontawesome::fa("r-project", height = "3em")`
+# **INTRODUCCIÓN A R**
+## CAPÍTULO 1
+
+---
+
+# `r fontawesome::fa("box-open")` Contenido del Capítulo 1
+
+- ¿Qué es R? y ¿Por qué R?
+- R, RStudio y RStudio Cloud
+- Entendiendo RStudio
+- Obteniendo ayuda
+- Trabajando con paquetes
+- Creando proyectos y scripts
+- Generalidades
+- Práctica 1
 
 ---
 
@@ -494,7 +515,33 @@ seq(from=1, to=10, length.out=3)
 
 ---
 
+background-color: var(--azul-claro)
+class: middle, center, inverse
 
+`r fontawesome::fa("laptop-code", height = "3em")`
+## PRÁCTICA 1
+
+---
+
+# `r fontawesome::fa("pen")` Práctica 1
+
+
+1. Crea un proyecto en tu computadora denominado "SEE_PracticasR".
+
+2. En el nuevo proyecto crea un script denominado "practica1".
+
+3. En el script:
+
+   1. Crea una variable, asígnale el valor de 20.
+   
+   2. Crea otra variable, asígnale el valor de 3.
+   
+   3. Crea otra variable que contenga la resta de la primera y segunda variable que creaste y elévala al cuadrado.
+   
+   4. Imprime el resultado.
+
+
+---
 
 
 class: middle, center, inverse
