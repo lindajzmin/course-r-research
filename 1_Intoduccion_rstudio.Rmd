@@ -553,8 +553,6 @@ class: middle, center, inverse
 # **¡FIN!**
 ## Introducción a RStudio
 
-### Síguenos
-
 .pull-left[
 .center[
 ### [@socecuest `r fontawesome::fa("facebook")`](https://www.facebook.com/socecuest)
