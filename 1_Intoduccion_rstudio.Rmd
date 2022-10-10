@@ -50,17 +50,15 @@ background-size: contain
 
 # `r fontawesome::fa("box-open")` Contenido del módulo
 
-- Introducción a RStudio
-- Importación de datos de diferentes fuentes (csv, excel, spss, do)
-- Tipos de datos y Operaciones básicas
-- Preparar y manejar datos para el análisis con `tidyverse`
-- Bases de `ggplot` para creación de gráficos
-- Estadística descriptiva con RStudio
-- Introducción a Rmarkdown. Compilar documentos R Markdown en un informe en diferentes formatos, como PDF, HTML o Word
-- Crear notebooks para ejecutar directamente fragmentos de código de forma interactiva incluyendo gráficos y tablas
-- Crear diapositivas para presentaciones (HTML5, LaTeX Beamer o PowerPoint)
-- Generar formatos de artículos de revistas y libros
-- Conectar RStudio y GitHub
+- **Capítulo 1: Introducción a RStudio.** R, RStudio, RStudio Cloud, Ayuda, Paquetes, Proyectos, Scripts y Generalidades. 
+
+- **Capítulo 2: Importación y orden de los datos en R.** Calidad de los datos, Importar datos, Estructuras de datos y Tipos de datos.
+
+- **Capítulo 3: Manipulación de datos en R.** Transformación de datos, Datos relacionales, Datos ordenados.
+
+- **Capítulo 4: Análisis exploratorio de datos.** Creación de gráficos, Estadística descriptiva.
+
+- **Capítulo 5: Comunicando resultados en R.** Introducción a Rmarkdown, Notebooks para ejecutar directamente fragmentos de código de forma interactiva incluyendo gráficos y tablas, Diapositivas para presentaciones (HTML5, LaTeX Beamer o PowerPoint), Formatos de artículos de revistas y libros, Conectar RStudio y GitHub.
 
 ---
 
@@ -90,14 +88,21 @@ class: middle, center
 
 # `r fontawesome::fa("box-open")` Contenido del Capítulo 1
 
-- ¿Qué es R? y ¿Por qué R?
-- R, RStudio y RStudio Cloud
-- Entendiendo RStudio
-- Obteniendo ayuda
-- Trabajando con paquetes
-- Creando proyectos y scripts
-- Generalidades
-- Práctica 1
+1. ¿Qué es **R**? y ¿Por qué **R**?
+
+2. **R**, **R**Studio y **R**Studio Cloud
+
+3. Entendiendo **R**Studio
+
+4. Obteniendo **ayuda**
+
+5. Trabajando con **paquetes**
+
+6. Creando **proyectos** y **scripts**
+
+7. Generalidades
+
+8. **Práctica 1**
 
 ---
 
@@ -121,7 +126,7 @@ Algunos datos importantes que debes conocer acerca de `r fontawesome::fa("r-proj
 ]
 
 .pull-right[
-```{r investigacion, echo=FALSE, out.width='100%', fig.align='center'}
+```{r investigacion, echo=FALSE, out.width='90%', fig.align='center'}
 knitr::include_graphics("img/open-source.jpg")
 ```
 ]
@@ -161,11 +166,7 @@ class: middle
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-> *"Fundamentally learning about the world through data is really, really cool."*
+> *"Cuando comienzas a programar, es fácil sentirte realmente frustrado... Es solo una parte natural de la programación, le sucede a todos y se vuelve cada vez menos con el tiempo. No te culpes. Solo tómate un descanso, haz algo divertido y luego regresa e inténtalo de nuevo más tarde."*
 (Hadley Wickham)
 ]
 
