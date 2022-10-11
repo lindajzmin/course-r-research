@@ -491,28 +491,34 @@ Observa que los objetos creados se almacenan en `Environment` en el panel worksp
 
 # `r fontawesome::fa("filter")` Funciones
 
+.pull-left[
 R tiene una gran colección de funciones integradas que se usan así:
 
-```{r func, echo=TRUE, eval=FALSE}
-nombre_funcion(arg1 = val1, arg2 = val2, ...)
+```{r func2, echo=FALSE, out.width='100%', fig.align='center'}
+knitr::include_graphics("img/funcion.png")
 ```
 
 Por ejemplo, para hacer secuencias de números podemos utilizar la función `seq()` del paquete base `{base}`.
+]
 
+.pull-right[
 ```{r func3, echo=TRUE}
-# generar secuencias de números de 1 en 1 del 1 al 10
+# generar secuencias de números del 1 al 10
 seq(from=1, to=10)
 
-# generar secuencias de números del 1 al 10, saltándome 2 números
+# generar secuencias de números del 1 al 10
+# saltando 2 números
 seq(from=1, to=10, by=2)
 
-# también podemos ingresar los argumentos sin sus etiquetas, pero en el orden correcto
+# argumentos sin etiquetas
 seq(1, 10, 2)
 
-# generar una secuencia de 3 números del 1 al 10, lo divide en partes iguales
+# secuencia de 3 números del 1 al 10
+# lo divide en partes iguales
 seq(from=1, to=10, length.out=3)
 
 ```
+]
 
 ---
 

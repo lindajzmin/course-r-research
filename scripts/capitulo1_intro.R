@@ -27,7 +27,7 @@ print("mi nombre es Linda")
 
 # OBTENIENDO AYUDA --------------------------------------------------------
 
-## 1. DESDE RSTUDIO
+## 1. DESDE RSTUDIO --------------------------------------------------------
 ## Proporciona enlaces de ayuda general del entorno de RStudio
 help.start()
 
@@ -42,7 +42,8 @@ help("unique")
 ## sitio web de R Project en http://search.r-project.org/
 RSiteSearch("string")
 
-## 2. DESDE LA WEB
+
+## 2. DESDE LA WEB ---------------------------------------------------------
 ## Stack Overflow: http://stackoverflow.com/questions/tagged/r
 ## Cross Validated: http://stats.stackexchange.com/questions/tagged/r
 ## R-seek: http://rseek.org/
@@ -70,7 +71,7 @@ library(tidyverse)
 
 # GENERALIDADES ----------------------------------------------------------
 
-## CALCULADORA
+## 1. CALCULADORA ----------------------------------------------------------
 
 ## multiplicación
 20*3            
@@ -94,8 +95,7 @@ exp(10)
 sin(pi/2)       
 
 
-
-## ASIGNACIÓN
+## 2. ASIGNACIÓN -----------------------------------------------------------
 
 ## crear una variable de nombre x
 x <- 20*3
@@ -106,8 +106,13 @@ dato_calculo <- 5*2
 dato_calculo
 
 
+## 3. FUNCIONES ------------------------------------------------------------
 
-## FUNCIONES
+## clase de dato de un número
+class(2)
+
+## clase de dato de una palabra
+class("dos")
 
 ?seq
 ## generar secuencias de números de 1 en 1 del 1 al 10
