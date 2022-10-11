@@ -62,23 +62,33 @@ xaringanExtra::use_panelset()
 
 # `r fontawesome::fa("box-open")` Contenido del Capítulo 2
 
-- Calidad de los datos
-- Importar datos
+.pull-left[
+* Calidad de los datos
+
+* Importar datos
    * Importar archivos `.csv`
    * Importar desde Excel
    * Importar desde SPSS y STATA
-   * Importar data sets desde la web
-   * Otros archivos
-- Estructuras de datos
+
+* Práctica 2.1
+
+* Estructuras de datos
    * Vectores
-   * Data.frames
-   * Tibbles
-- Tipos de datos
+]
+
+.pull-right[ 
+* Estructuras de datos
+   * Data.frames (Tibbles)
+   * Funciones básicas
+   
+* Tipos de datos
    * Numéricos
    * Cadena de caracteres
    * Factores
    * Fechas y Horas
-- Práctica 2
+
+* Práctica 2.2
+]
 
 ---
 
@@ -89,25 +99,15 @@ class: middle, center, inverse
 
 ---
 
-.pull-left[
-```{r datos1, echo=FALSE, out.width='100%', fig.align='center'}
+```{r datos1, echo=FALSE, out.width='50%', fig.align='center'}
 knitr::include_graphics("img/lifecycle.png")
 ```
-]
 
---
-
-.pull-right[
-```{r datos2, echo=FALSE, out.width='100%', fig.align='center'}
-knitr::include_graphics("img/attributes.png")
-```
-]
-
-.footnote[ [Understanding the Data Science Lifecycle](https://www.sudeep.co/data-science/2018/02/09/Understanding-the-Data-Science-Lifecycle.html) || [Your Guide to Data Quality Management](https://www.scnsoft.com/blog/guide-to-data-quality-management)]
+.footnote[ [Understanding the Data Science Lifecycle](https://www.sudeep.co/data-science/2018/02/09/Understanding-the-Data-Science-Lifecycle.html) || [8 Ways to Improve Decision Making](https://www.anblicks.com/blog/8-ways-to-improve-decision-making-and-cut-cost-with-better-data-quality)]
 
 ---
 
-# `r fontawesome::fa("database")` Proceso del *tidyverse*
+# `r fontawesome::fa("gears")` Proceso del *tidyverse*
 
 ```{r flujo , echo=FALSE, out.width='100%', fig.align='center'}
 knitr::include_graphics("img/tidyverse.png")
@@ -115,10 +115,42 @@ knitr::include_graphics("img/tidyverse.png")
 
 ---
 
+# `r fontawesome::fa("box-open")` Paquetes a utilizar
+
+.pull-left[
+
+* `r fontawesome::fa("check-double")` library(tidyverse)
+
+   * `r fontawesome::fa("check")` `library(readr)`
+
+   * `r fontawesome::fa("check")` `library(tibble)`
+
+   * `r fontawesome::fa("check")` `library(stringr)`
+
+   * `r fontawesome::fa("check")` `library(forcats)`
+
+]
+
+.pull-right[
+
+* `r fontawesome::fa("check-double")` library(readxl)
+
+* `r fontawesome::fa("check-double")` library(haven)
+
+* `r fontawesome::fa("check-double")` library(lubridate)
+
+* `r fontawesome::fa("check-double")` library(hms)
+
+* `r fontawesome::fa("check-double")` library(rio)
+]
+
+---
+
 class: middle, center, inverse
 
 `r fontawesome::fa("file-import", height = "3em")`
 # Importar datos
+
 
 ---
 
@@ -142,7 +174,7 @@ Para leer un archivo `.csv` la función a utilizar es `read_csv()` del paquete `
 
 ```{r csv2, echo=TRUE, eval=FALSE, warning=TRUE}
 library(readr)
-players21_1 <- read_csv("Data/players_21.csv")
+players21 <- read_csv("Data/players_21.csv")
 ```
 
 También lo podemos hacer con el sistema base de `r fontawesome::fa("r-project")`, aquí no necesitamos cargar ninguna librería. Para esto, nos ubicamos en la barra de herramientas `File -> Import Dataset -> From Text (readr)`.
@@ -174,7 +206,7 @@ Para leer un archivo de Excel la función a utilizar es `read_excel()` del paque
 
 ```{r exc2, echo=TRUE, eval=FALSE}
 library(readxl)
-ventasvuelos <- read_excel("data/VentasVuelos.xlsx", 
+vuelos <- read_excel("data/VentasVuelos.xlsx", 
     sheet = "data", skip = 1)
 ```
 
@@ -233,7 +265,7 @@ pasajeros <- read_dta("data/pasajeros.dta")
 
 .footnote[ [haven.tidyverse.org](https://haven.tidyverse.org/) ]
 
----
+<!--
 
 # `r fontawesome::fa("battle-net")` Importar desde la web
 
@@ -246,8 +278,6 @@ pasajeros <- read_dta("data/pasajeros.dta")
 `rio` realiza importación y exportación optimizada de datos. Usa la extensión de archivo de un nombre de archivo para determinar qué tipo de archivo es. 
 
 ]
-
---
 
 .pull-right[
 
@@ -271,7 +301,6 @@ dataBCE <- import(urlData, sheet = "VAB Cantonal", skip = 6, col_names = TRUE)
 
 .footnote[ [github.com/leeper/rio](https://github.com/leeper/rio) ]
 
----
 
 # `r fontawesome::fa("file")` Otros archivos
 
@@ -286,14 +315,30 @@ dataBCE <- import(urlData, sheet = "VAB Cantonal", skip = 6, col_names = TRUE)
 
 * `data.table` para manejar grandes volúmenes de datos. Existe un curso corto gratuito brindado por la Sociedad Ecuatoriana de Estadística que pueden visitar en el siguiente link: [https://www.youtube.com/Sociedad_Ecuatoriana_Estadistica](https://www.youtube.com/watch?v=s1QnGTk0x8U&list=PL2PpISw8vp_oJlVXpYYowclogCCLtEOfX).
 
+-->
 
 ---
 
-# `r fontawesome::fa("dumbbell")` Ejercicio 1: profesores.xlsx
+background-color: var(--azul-claro)
+class: middle, center, inverse
 
-### 1. Cargar el archivo `profesores.xlsx`
-```{r ejer1, echo=TRUE}
+`r fontawesome::fa("laptop-code", height = "3em")`
+## PRÁCTICA 2.1
+
+---
+
+# `r fontawesome::fa("pen")` Práctica 2.1
+
+### 1. Cargar el archivo `profesores.xlsx` y guardarlo en un objeto llamado `profesores`.
+
+```{r prac21, echo=FALSE, eval=TRUE}
 profesores <- read_excel("data/profesores.xlsx")
+```
+
+### 2. Cargar el archivo `BasePrograma.xlsx` y guardarlo en un objeto llamado `baseprograma`.
+
+```{r prac22, echo=FALSE, eval=TRUE}
+baseprograma <- read_excel("data/BasePrograma.xlsx")
 ```
 
 ---
@@ -404,7 +449,7 @@ w[-3]
 Un data frame es un conjunto de vectores que deben cumplir las siguientes propiedades:
 * Las componentes son vectores
 * Cada vector puede ser de un tipo de dato distinto
-* Cada elemento, columna es una variable
+* Cada columna es una variable
 * Las columnas tienen el mismo largo
 
 Las filas se denominan observaciones y las columnas se las denomina variables.
@@ -425,9 +470,9 @@ Artwork by @allison_horst
 Con la función `data.frame()`, que se conformará de la unión de 3 vectores creados previamente.
 
 ```{r df1, echo=TRUE}
-nombres <- c("Marcela", "Luis")
-edades <- c(24,32)
-seguro <- factor(c("IESS", "BMI"))
+nombres <- c("Marcela Cox", "Luis Vargas", "David Mieles")
+edades <- c(24,32,27)
+seguro <- factor(c("IESS", "BMI", "IESS"))
 
 pacientes <- data.frame(nombres, edades, seguro)
 pacientes
@@ -458,66 +503,159 @@ pacientes2
 
 ---
 
-# `r fontawesome::fa("table")` Tibbles
-
 .pull-left[
+## `r fontawesome::fa("table")` Navegando por el data.frame
+
+Supongamos que queremos extraer la edad de David Mieles. (indexación)
+
+```{r df11, echo=TRUE}
+pacientes[3,2]
+```
 
 .center[
-<img src="img/tibble.png" width="200px">
+<img src="img/dataframe2.png" width="750px">
 ]
-
-Los `tibble` son data.frames, pero modifican algunas características antiguas para hacernos la vida más fácil. La mayoría de las veces usaremos el término tibble y data.frame de manera indistinta. 
 
 ]
 
 .pull-right[
+<br>
+<br>
 
-Existen dos diferencias principales entre el uso de un tibble y un data.frame clásico: la impresión en la consola y la selección de los subconjuntos.
+También podemos consultar a R por los valores de una columna entera de nuestro data set con el símbolo `$`.
 
-La mayoría de los paquetes de R suelen usar data.frames clásicos, así que si deseas trabajar con tibbles (que es más recomendable) puedes convertir un data.frame en un tibble, con la función `as_tibble()`.
-
-```{r tb2, echo=TRUE}
-tbl_pacientes2 <- as_tibble(pacientes2)
+```{r df12, echo=TRUE}
+pacientes$nombres
 ```
+
+Y aplicar una función a esa columna:
+
+```{r df13, echo=TRUE}
+mean(pacientes$edades)
+```
+
 ]
 
 .footnote[ [tibble.tidyverse.org](https://tibble.tidyverse.org/) ]
 
 ---
 
-# `r fontawesome::fa("table")` Tibbles
-
-Vamos a visualizar la diferencia entre la estructura de un data.frame y de un tibble con `str()`:
+# `r fontawesome::fa("object-group")` Funciones básicas para explorar data.frames
 
 .pull-left[
-**Data.frame**
-```{r tb1, echo=TRUE}
-str(pacientes2)           # muestra estructura de data.frame
-```
+* **`dim():`** indica las dimensiones del data.frame o tibble, número de filas y columnas.
+
+* **`str():`** muestra de forma compacta la estructura interna de un objeto R.
+
+* **`colnames():`** muestra el nombre de las variables de un data.frame.
+
+* **`head():`** muestra las 10 primeras obervaciones del conjunto de datos.
+
+* **`tail():`** muestra las 4 últimas observaciones del conjunto de datos.
 ]
 
 .pull-right[
-**Tibble**
-```{r tb3, echo=TRUE}
-str(tbl_pacientes2)       # muestra estructura de tibble
-```
+* **`summary():`** produce resúmenes de resultados de varias variables. Los resultados dependen de la clase de datos.
+
+* **`sum():`** devuelve la suma de todos los valores presentes en sus argumentos.
+
+* **`min():`** devuelve el valor mínimo de un vector numérico.
+
+* **`max():`** devuelve el valor máximo de un vector numérico.
 ]
 
 ---
 
-```{r tid2, echo=FALSE, out.width='90%', fig.align='center', fig.cap="Figura 1. Diferencias entre estructuras de datos"}
-knitr::include_graphics("img/estructuras.png")
+# `r fontawesome::fa("object-group")` Funciones básicas para explorar data.frames
+
+.panelset[
+.panel[.panel-name[Encuestados]
+¿Cuántas personas llenaron la encuesta de la situación actual del profesorado de alumnos con necesidades especiales educativas?
+
+```{r fb1, echo=TRUE}
+dim(profesores)
 ```
+]
+
+.panel[.panel-name[Encuesta]
+
+¿Cuál es la estructura de la encuesta de la situación actual del profesorado de alumnos con necesidades especiales educativas?
+
+```{r fb2, echo=TRUE}
+str(profesores)
+```
+]
+
+.panel[.panel-name[Variables]
+
+¿Cuáles son las variables de la encuesta de la situación actual del profesorado de alumnos con necesidades especiales educativas?
+
+```{r fb3, echo=TRUE}
+colnames(profesores)
+```
+]
+
+.panel[.panel-name[Observaciones1]
+
+Visualización de las primeras 5 encuestas realizadas al profesorado sobre la situación actual de alumnos con necesidades especiales educativas
+
+```{r fb4, echo=TRUE}
+head(profesores, n=5)
+```
+]
+
+.panel[.panel-name[Observaciones2]
+
+Visualización de las últimas 5 encuestas realizadas al profesorado sobre la situación actual de alumnos con necesidades especiales educativas
+
+```{r fb5, echo=TRUE}
+tail(profesores, n=5)
+```
+]
+
+]
 
 ---
 
-# `r fontawesome::fa("dumbbell")` Ejercicio 2: profesores.xlsx
+# `r fontawesome::fa("object-group")` Funciones básicas para explorar data.frames
 
-### 1. Indique la estructura que tiene el data set `profesores.xlsx`.
+.panelset[
+.panel[.panel-name[Total]
 
-```{r tid3, echo=TRUE}
-str(profesores)
+¿Cuántos alumnos con necesidades especiales educativas constan en la encuesta?
+
+```{r fb6, echo=TRUE}
+sum(profesores$`No_Alumnos NEE`)
 ```
+]
+
+.panel[.panel-name[Min]
+
+¿Cuál es la edad del profesor más joven que llenó la encuesta de la situación actual del profesorado de alumnos con necesidades especiales educativas?
+
+```{r fb7, echo=TRUE}
+min(profesores$Edad)
+```
+]
+
+.panel[.panel-name[Max]
+
+¿Cuál es la edad del profesor mayor que llenó la encuesta de la situación actual del profesorado de alumnos con necesidades especiales educativas?
+
+```{r fb8, echo=TRUE}
+max(profesores$Edad)
+```
+]
+
+.panel[.panel-name[Resumen]
+Genere un resumen de la variable `No_Alumnos` de la encuesta de la situación actual del profesorado de alumnos con necesidades especiales educativas.
+
+```{r fb9, echo=TRUE}
+summary(profesores$No_Alumnos)
+```
+]
+
+]
 
 ---
 
@@ -575,7 +713,7 @@ class(parse_number(z))
 
 ]
 
----
+<!--
 
 ## **Numéricos**
 
@@ -592,8 +730,6 @@ parse_number("6'789,56",
 
 ]
 
---
-
 .pull-right[
 También sirve para extraer números insertos en texto.
 
@@ -608,6 +744,7 @@ parse_number("$123.456.789", locale = locale(grouping_mark = "."))
 ```
 
 ]
+-->
 
 ---
 
@@ -648,6 +785,8 @@ guess_encoding(charToRaw(x1))
 ```
 
 ]
+
+.footnote[ [Tablas de codificación de caracteres](http://www.atc.uniovi.es/tablas.php)]
 
 ---
 
@@ -918,166 +1057,46 @@ as_date(now())
 
 ---
 
-# `r fontawesome::fa("dumbbell")` Ejercicio 3: profesores.xlsx
-
-### 1. Prepare el data set para el análisis verificando que el tipo de dato de cada variable sea el adecuado.
-
-**Fecha**
-```{r ejer2, echo=TRUE}
-profesores$Fecha <- as_date(profesores$Fecha)
-class(profesores$Fecha)
-```
-
-**Tiempo impartiendo docencia**
-```{r ejer3, echo=TRUE}
-profesores$Tiempo_impartiendo_docencia <- factor(profesores$Tiempo_impartiendo_docencia, 
-                                    levels = c("Menos de 3 años", 
-                                               "De 3 a 6 años", 
-                                               "Más de 6 años"))
-class(profesores$Tiempo_impartiendo_docencia)
-```
-
----
-
-# `r fontawesome::fa("dumbbell")` Ejercicio 3: profesores.xlsx
-
-**Atención a la diversidad es necesaria**
-
-```{r ejer4, echo=TRUE}
-profesores$AD_es_necesaria <- factor(profesores$AD_es_necesaria, 
-                                    levels = c(1, 2, 3, 4, 5))
-
-class(profesores$AD_es_necesaria)
-
-profesores$AD_es_necesaria <- fct_recode(profesores$AD_es_necesaria, 
-                                         "Totalmente en desacuerdo" ="1",
-                                         "En desacuerdo" ="2",
-                                         "Ni de acuerdo ni en desacuerdo" = "3",
-                                         "De acuerdo" = "4",
-                                         "Totalmente de acuerdo" = "5")
-
-levels(profesores$AD_es_necesaria)
-```
-
----
-
-# `r fontawesome::fa("dumbbell")` Ejercicio 3: profesores.xlsx
-
-**Atención a la diversidad se imparte en cualquier asignatura**
-
-```{r ejer5, echo=TRUE}
-profesores$AD_en_cualquier_asignatura <- factor(profesores$AD_en_cualquier_asignatura, 
-                                    levels = c(1, 2, 3, 4, 5))
-
-profesores$AD_en_cualquier_asignatura <- fct_recode(profesores$AD_en_cualquier_asignatura, 
-                                         "Totalmente en desacuerdo" ="1",
-                                         "En desacuerdo" ="2",
-                                         "Ni de acuerdo ni en desacuerdo" = "3",
-                                         "De acuerdo" = "4",
-                                         "Totalmente de acuerdo" = "5")
-
-```
-
-**Leyes de educación para alumnos con necesidades educativas especiales?**
-
-```{r ejer6, echo=TRUE}
-profesores$Leyes_para_ANEE <- factor(profesores$Leyes_para_ANEE, 
-                                    levels = c(1, 2, 3, 4, 5))
-
-profesores$Leyes_para_ANEE <- fct_recode(profesores$Leyes_para_ANEE, 
-                                         "Totalmente en desacuerdo" ="1",
-                                         "En desacuerdo" ="2",
-                                         "Ni de acuerdo ni en desacuerdo" = "3",
-                                         "De acuerdo" = "4",
-                                         "Totalmente de acuerdo" = "5")
-
-```
-
----
-
-# `r fontawesome::fa("dumbbell")` Ejercicio 3: profesores.xlsx
-
-**Ratio de alumnos con necesidades educativas especiales**
-
-```{r ejer7, echo=TRUE}
-profesores$Ratio_de_ANEE <- factor(profesores$Ratio_de_ANEE, 
-                                    levels = c(1, 2, 3, 4, 5))
-
-profesores$Ratio_de_ANEE <- fct_recode(profesores$Ratio_de_ANEE, 
-                                         "Totalmente en desacuerdo" ="1",
-                                         "En desacuerdo" ="2",
-                                         "Ni de acuerdo ni en desacuerdo" = "3",
-                                         "De acuerdo" = "4",
-                                         "Totalmente de acuerdo" = "5")
-
-```
-
-**Asistente de clases a tiempo completo**
-
-```{r ejer8, echo=TRUE}
-profesores$Asistente_de_clases <- factor(profesores$Asistente_de_clases, 
-                                    levels = c(1, 2, 3, 4, 5))
-
-profesores$Asistente_de_clases <- fct_recode(profesores$Asistente_de_clases, 
-                                         "Totalmente en desacuerdo" ="1",
-                                         "En desacuerdo" ="2",
-                                         "Ni de acuerdo ni en desacuerdo" = "3",
-                                         "De acuerdo" = "4",
-                                         "Totalmente de acuerdo" = "5")
-
-```
-
----
-
-# `r fontawesome::fa("dumbbell")` Ejercicio 3: profesores.xlsx
-
-**Instrucción suficiente para atender alumnos con necesidades educativas especiales**
-
-```{r ejer9, echo=TRUE}
-profesores$Suficiente_instruccion <- factor(profesores$Suficiente_instruccion, 
-                                    levels = c(1, 2, 3, 4, 5))
-
-profesores$Suficiente_instruccion <- fct_recode(profesores$Suficiente_instruccion, 
-                                         "Totalmente en desacuerdo" ="1",
-                                         "En desacuerdo" ="2",
-                                         "Ni de acuerdo ni en desacuerdo" = "3",
-                                         "De acuerdo" = "4",
-                                         "Totalmente de acuerdo" = "5")
-
-```
-
----
-
-# `r fontawesome::fa("dumbbell")` Ejercicio 3: profesores.xlsx
-
-```{r ejer10, echo=TRUE}
-str(profesores)
-```
-
----
-
 background-color: var(--azul-claro)
 class: middle, center, inverse
 
 `r fontawesome::fa("laptop-code", height = "3em")`
-## PRÁCTICA 2
+## PRÁCTICA 2.2
+## PRÁCTICA 2.3
 
 ---
 
-# `r fontawesome::fa("pen")` Práctica 2
+# `r fontawesome::fa("pen")` Práctica 2.2
 
+### 1. Verifique la estructura del data set `profesores` y define el tipo de cada variable.
 
-1. Carga el archivo `BasePrograma.xlsx`
+### 2. Prepare el data set para el análisis verificando que el tipo de dato de cada variable sea el adecuado, corríjalos.
 
-2. Verifique la estructura que tiene el data set.
+### 3. Guarde el data set corregido en una nueva variable llamada `profesores2`.
 
-3. Indique el número de observaciones y de variables del data set.
+### 4. Guarde el data set en un archivo excel en su computadora.
 
-4. Prepare el data set para el análisis verificando que el tipo de dato de cada variable sea el adecuado. Corrija los tipos de datos que considere necesarios.
+### 5. Extraer la información del 6to encuestado.
 
+### 6. Extraer la edad del 5to encuestado.
 
 ---
 
+# `r fontawesome::fa("pen")` Práctica 2.3
+
+### 1. Verifique la estructura del data set `baseprograma` y define el tipo de cada variable.
+
+### 2. Prepare el data set para el análisis verificando que el tipo de dato de cada variable sea el adecuado, corríjalos.
+
+### 3. Guarde el data set corregido en una nueva variable llamada `baseprograma2`.
+
+### 4. Guarde el data set en un archivo excel en su computadora.
+
+### 5. Extraer la información del 5to encuestado.
+
+### 6. Extraer la estatura del 9no encuestado.
+
+---
 
 class: middle, center, inverse
 
