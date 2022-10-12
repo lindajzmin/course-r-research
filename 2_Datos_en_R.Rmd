@@ -140,8 +140,6 @@ knitr::include_graphics("img/tidyverse.png")
 * `r fontawesome::fa("check-double")` library(lubridate)
 
 * `r fontawesome::fa("check-double")` library(hms)
-
-* `r fontawesome::fa("check-double")` library(rio)
 ]
 
 ---
@@ -1072,13 +1070,11 @@ class: middle, center, inverse
 
 ### 2. Prepare el data set para el análisis verificando que el tipo de dato de cada variable sea el adecuado, corríjalos.
 
-### 3. Guarde el data set corregido en una nueva variable llamada `profesores2`.
+### 3. Guarde el data set en un archivo excel en su computadora llamado `r_profesores`.
 
-### 4. Guarde el data set en un archivo excel en su computadora.
+### 4. Extraer la información del 6to encuestado.
 
-### 5. Extraer la información del 6to encuestado.
-
-### 6. Extraer la edad del 5to encuestado.
+### 5. Extraer la siguiente información del 5to encuestado: edad, género y si condera que la atención a la diversidad es necesaria.
 
 ---
 
@@ -1088,13 +1084,11 @@ class: middle, center, inverse
 
 ### 2. Prepare el data set para el análisis verificando que el tipo de dato de cada variable sea el adecuado, corríjalos.
 
-### 3. Guarde el data set corregido en una nueva variable llamada `baseprograma2`.
+### 3. Guarde el data set coregido en un archivo excel en su computadora `r_programa`.
 
-### 4. Guarde el data set en un archivo excel en su computadora.
+### 4. Extraer la información del 5to encuestado.
 
-### 5. Extraer la información del 5to encuestado.
-
-### 6. Extraer la estatura del 9no encuestado.
+### 5. Extraer la estatura y edad del 9no encuestado.
 
 ---
 
