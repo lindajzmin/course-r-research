@@ -582,7 +582,7 @@ tabla4a %>%  pivot_longer(cols = c(`1999`, `2000`),
 ]
 
 .pull-right[
-**`pivot_wider()`** es lo contrario de `pivot_longer()`, amplia los datos expandiendo dos columnas en varias. Una columna proporciona los nuevos nombres de columna, la otra los valores..
+**`pivot_wider()`** es lo contrario de `pivot_longer()`, amplia los datos expandiendo dos columnas en varias. Una columna proporciona los nuevos nombres de columna, la otra los valores.
 
 ```{r do3, echo=TRUE, eval=FALSE}
 pivot_wider(data, 
