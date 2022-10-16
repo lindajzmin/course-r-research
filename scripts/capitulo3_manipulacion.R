@@ -7,6 +7,7 @@
 ## Instalación de paquetes a utilizar en el Capítulo 2
 
 install.packages("magrittr")
+install.packages("datos")
 
 
 ## CARGA DE PAQUETES -------------------------------------------------------
@@ -15,6 +16,7 @@ install.packages("magrittr")
 library(tidyverse)
 library(magrittr)
 library(readxl)
+library(datos)
 
 rm(estres, players21)   # eliminar datas no necesarias
 
@@ -127,7 +129,6 @@ profesores2 %>%
 
 ## 1. Construir la siguiente tabla.
 
-
 profesores2 %>% 
     group_by(niveldocencia) %>% 
     summarise(Profesores = n(),
@@ -136,5 +137,31 @@ profesores2 %>%
               'Edad Promedio' = round(mean(edad)))%>% 
     rename("Nivel que imparte docencia"=niveldocencia) %>% 
     view()
+
+
+
+# DATOS ORDENADOS ---------------------------------------------------------
+
+# cargamos el data set VentasVuelos
+vuelos <- read_excel("data/VentasVuelos.xlsx", 
+                     sheet = "data", skip = 1)
+
+## PIVOT_LONGER() ------------------------------------------------
+
+table4a
+
+tabla4a %>%  pivot_longer(cols = c(`1999`, `2000`), 
+                          names_to = "anio", 
+                          values_to = "casos")
+
+## PIVOT_WIDER() -----------------------------------------------------------
+
+table2
+
+tabla2 %>%  pivot_wider(names_from = tipo, 
+                        values_from = cuenta)
+
+
+
 
 

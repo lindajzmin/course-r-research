@@ -69,14 +69,20 @@ xaringanExtra::use_panelset()
 
 # `r fontawesome::fa("box-open")` Contenido del Capítulo 3
 
-- Transformación de datos
-   * Funciones del paquete `dplyr`
+- Transformación de datos con `dplyr`
    * Modificar el nombre de las variables
    * Seleccionar o descartar variables
    * Operador pipe `%>%`
-- Datos relacionados con `dplyr`
+   * Filtrar observaciones
+   * Agregar o editar variables
+   * Resumir información
+   * Agrupar o segmentar datos
+
+- Práctica 3.1
+
 - Datos ordenados con `tidyr`
-- Práctica 3
+   * Ordenar datos a lo largo
+   * Ordenar datos a lo ancho
 
 ---
 
@@ -96,18 +102,23 @@ xaringanExtra::use_panelset()
 
 * `r fontawesome::fa("check-double")` library(magrittr)
 
+* `r fontawesome::fa("check-double")` library(datos)
+
 ]
 
 ---
 
 class: middle, center, inverse
 
-`r fontawesome::fa("wrench", height = "3em")`
-# Transformación de datos
+<img src="img/dplyr.png" width="150px">
+# Transformación de datos con `dplyr`
 
 ---
 
 # `r fontawesome::fa("wrench")` Funciones del paquete `dplyr`
+
+<br>
+<br>
 
 | Función        |  Acción                                    |
 |:---------------|-------------------------------------------:|
@@ -117,6 +128,8 @@ class: middle, center, inverse
 | `mutate()`     | *Agrega o edita variables (columnas)* |
 | `summarise()`  | *Resume los datos en tablas* |
 | `group_by()`   | *Agrupa o segmenta los datos en función de una variable (columna)* |
+
+<br>
 
 .footnote[ [dplyr.tidyverse.org](https://dplyr.tidyverse.org/) ]
 
@@ -377,7 +390,7 @@ background-size: contain
 
 # `r fontawesome::fa("wrench")` Agregar o editar variables
 
-Vamos a delimitar nuestros datos a la población masculina que tiene 30, 31 y 32 años de edad. Vamos a **agregar** una columna que contenga el número de estudiantes que no tienen NEE. Mostrar las primeras 7 columnas y la última.
+Vamos a delimitar nuestros datos a la población masculina que tiene 30, 31 y 32 años de edad. Con **`mutate()`** agregaremos una columna que contenga el número de estudiantes que no tienen NEE. Mostrar las primeras 7 columnas y la última.
 
 ```{r fdp11, echo=TRUE, eval=TRUE}
 profesores2 %>% 
@@ -389,6 +402,8 @@ profesores2 %>%
 ---
 
 # `r fontawesome::fa("wrench")` Resumir información
+
+**`summarise()`** se encarga de colapsar un data frame en una sola fila. Es mucho más útil si lo enlazamos con `group_by()`.
 
 **Indicador 1:** Número promedio de estudiantes
 
@@ -418,13 +433,15 @@ profesores2 %>%
 
 # `r fontawesome::fa("wrench")` Agrupar o segmentar datos
 
+
+**`group_by()`** realiza operaciones en grupos definidos por variables que por sí sola no dará ningún resultado, por lo que debe ir seguido de la función `summarise()` con una acción apropiada para realizar.
+
 - **Indicador 2:** Número promedio de estudiantes por sexo y nivel de educación
 
 ```{r fdp14, echo=TRUE, eval=TRUE}
 profesores2 %>% 
-    summarise(TotalProfesores = n(),
-              EdadPromedioProfesores = mean(edad),
-              EstudiantesNEE = sum(alumnosNEE))
+    group_by(sexo, niveldocencia) %>% 
+    summarise(EstudiantesPromedio = sum(alumnos)/n())
 ```
 
 ---
@@ -466,8 +483,136 @@ kable(profesores2 %>%
     rename("Nivel que imparte docencia"=niveldocencia))
 ```
 
+---
 
-<!--
+class: middle, center, inverse
+
+<img src="img/tidyr.png" width="150px">
+# Datos ordenados con `tidyr`
+
+---
+
+# `r fontawesome::fa("broom")` Datos ordenados
+
+Existen tres reglas interrelacionadas que hacen que un conjunto de datos sea ordenado:
+
+* Cada variable debe tener su propia columna.
+* Cada observación debe tener su propia fila.
+* Cada valor debe tener su propia celda.
+
+```{r do1, echo = FALSE, out.width=1000, fig.align='center', fig.cap="Figura: Reglas que hacen que un conjunto de datos sea ordenado"}
+knitr::include_graphics("img/tidy_data.png")
+```
+
+---
+
+# `r fontawesome::fa("broom")` Funciones del paquete `tidyr`
+
+<br>
+<br>
+<br>
+
+| Función        |  Acción                                    |
+|:---------------|-------------------------------------------:|
+| `pivot_longer()`     | *Modifica el nombre de las variables* |
+| `pivot_wider()`     | *Selecciona o descarta variables (columnas) de un conjunto de datos* |
+
+<br>
+<br>
+<br>
+<br>
+
+.footnote[ [tidyr.tidyverse.org](https://tidyr.tidyverse.org/) ]
+
+---
+
+# `r fontawesome::fa("broom")` Ordenar datos a lo largo
+
+<br>
+
+.pull-left[
+.center[
+<img src="img/longer.png" width="600px">
+]
+]
+
+.pull-right[
+**`pivot_longer()`** alarga datos al contraer varias columnas en dos. Los nombres de columna se mueven a una nueva columna de `names_to` y los valores a una nueva columna de `values_to`.
+
+```{r do2, echo=TRUE, eval=FALSE}
+pivot_longer(data, cols, 
+             names_to = "name", 
+             values_to = "value", 
+             values_drop_na = FALSE)
+```
+]
+
+---
+
+# `r fontawesome::fa("broom")` Ordenar datos a lo largo
+
+.pull-left[
+```{r do4, echo=TRUE, eval=TRUE}
+library(datos)
+
+table4a
+
+```
+]
+
+.pull-right[
+```{r do5, echo=TRUE, eval=TRUE}
+
+tabla4a %>%  pivot_longer(cols = c(`1999`, `2000`), 
+               names_to = "anio", 
+               values_to = "casos")
+```
+]
+
+---
+
+# `r fontawesome::fa("broom")` Ordenar datos a lo ancho
+
+<br>
+
+.pull-left[
+.center[
+<img src="img/wider.png" width="600px">
+]
+]
+
+.pull-right[
+**`pivot_wider()`** es lo contrario de `pivot_longer()`, amplia los datos expandiendo dos columnas en varias. Una columna proporciona los nuevos nombres de columna, la otra los valores..
+
+```{r do3, echo=TRUE, eval=FALSE}
+pivot_wider(data, 
+            names_from = "name",
+            values_from = "value")
+```
+]
+
+---
+
+# `r fontawesome::fa("broom")` Ordenar datos a lo ancho
+
+.pull-left[
+```{r do6, echo=TRUE, eval=TRUE}
+
+table2
+
+```
+]
+
+.pull-right[
+```{r do7, echo=TRUE, eval=TRUE}
+
+tabla2 %>%  pivot_wider(names_from = tipo, 
+                        values_from = cuenta)
+
+```
+]
+
+---
 
 class: middle, center, inverse
 
@@ -493,4 +638,3 @@ class: middle, center, inverse
 ### [@sosecuest `r fontawesome::fa("telegram")`](https://t.me/sosecuest)
 ]]
 
--->
