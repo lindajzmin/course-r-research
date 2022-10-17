@@ -33,6 +33,9 @@ profesores2 <- rename(profesores2, fecha= Fecha, edad=Edad, sexo=Genero, niveldo
        instruccion=Suficiente_instruccion, material=Material_utilizado)
 colnames(profesores2)
 
+library(openxlsx)
+write.xlsx(profesores2, file="data/r_profesores.xlsx", sheetName="cap3")
+
 
 ## SELECT() ------------------------------------------------------------
 ## Selecciono las variables que deseo del conjunto de datos:
