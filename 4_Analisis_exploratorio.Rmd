@@ -41,6 +41,7 @@ profesores2 <- read_excel("data/r_profesores.xlsx")
 
 library(ggplot2)
 library(kableExtra)
+library(datos)
 
 ```
 
@@ -72,10 +73,18 @@ xaringanExtra::use_panelset()
 - Creación de gráficos con `ggplot2`
    * ¿Qué es la visualización de datos?
    * Gramática de los gráficos
-   * ggplot
+   * Data
+   * Estética
+   * Geometrías
    * Facetas
+   * Práctica 4.1
+   * Más Estética
+   * Práctica 4.2
+   * Transformaciones Estadísticas
+   * Coordenadas y Escalas
+   * Temas visuales
+   * Práctica 4.3
    
-
 
 ---
 
@@ -140,13 +149,15 @@ background-size: contain
 - **Facetas `facet_`:** disposición de los datos en una cuadrícula de gráficos.
 - **Temas visuales `theme()`:** los valores predeterminados visuales generales de una trama, como el fondo, las cuadrículas, los ejes, el tipo de letra predeterminado, los tamaños y los colores.
 
+.footnote[
+[Referencias de ggplot2](https://ggplot2.tidyverse.org/reference/) | [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)
+]
+
 ---
 
-# `r fontawesome::fa("chart-line")` ggplot
+# `r fontawesome::fa("chart-line")` Data
 
 .pull-left[
-## Data
-
 Un **ggplot** necesita especificar mínimo tres cosas: los datos, la estética y una geometría. 
 
 Siempre comenzamos a definir un objeto de trazado llamando a la **data** mediante `data %>% ggplot()` que simplemente le dice a `ggplot2` que vamos a trabajar con esos datos.
@@ -176,11 +187,44 @@ profesores2 %>% ggplot()
 
 ---
 
+# `r fontawesome::fa("chart-line")` Data
 
-# `r fontawesome::fa("chart-line")` ggplot
+El paquete `datos` contiene algunos datasets que podemos consultarlos con `library(help = "datos")`. Usaremos los siguientes para realizar ejercicios:
+
+- **diamantes**: Precio de 50.000 diamantes
+
+- **paises**: Datos de [Gapminder](http://www.aomatos.com/2013/01/gapminder-para-una-vision-del-mundo-basada-en-hechos/), población, esperanza de vida y PIB per capita
+
+- **presidencial**: Periodos de 11 presidentes, desde Eisenhower a Obama
+
+- **millas**: Datos de economía de combustible de 1999 y 2008 para 38 modelos populares de automóviles
+
+- **economics**: del paquete `datasets` contiene series de tiempo de la economía de USA. 
+
+---
+
+# `r fontawesome::fa("chart-line")` Estética
+
+**Aesthetics** significa describir un objeto en nuestros gráficos. Sin estética no tenemos nada que mostrar en nuestros gráficos.
+
+Las variables del conjunto de datos se asignan a propiedades visuales de gráficos con **aesthetics mapping**.
+
+Depende del tipo de gráfico estadístico que estemos produciendo, pero generalmente mapeamos:
+   * una variable que se mostrará en el eje $x$
+   * una variable que se mostrará en el eje $y$ (en algunos casos solo necesitamos mapear a un solo eje)
+   * se pueden asignar otras variables al color, la forma, el tamaño, el color de relleno, etc. del objeto.
+
+
+---
+
+background-image: url("img/aesthetics.png")
+background-size: contain
+
+---
+
+# `r fontawesome::fa("chart-line")` Estética
 
 .pull-left[
-## Estética
 
 En la mayoría de los casos, es posible que desee trazar una o dos variables: una en el eje $x$ y otra en el eje $y$. Estas son estéticas posicionales y, por lo tanto, agregamos `aes(x = var1, y = var2)` a la llamada **ggplot()**.
 
@@ -205,11 +249,9 @@ profesores2 %>% ggplot(aes(edad))
 
 ---
 
-# `r fontawesome::fa("chart-line")` ggplot
+# `r fontawesome::fa("chart-line")` Geometrías
 
 .pull-left[
-## Geometrías
-
 Hay muchas geometrías diferentes (llamadas **geoms** porque cada función generalmente comienza con `geom_`) que se pueden agregar a un ggplot de forma predeterminada.
 
 Tenemos que decirle a `ggplot2` qué estilo queremos usar, por ejemplo, agregando geom_bar() para crear un diagrama de barras.
@@ -233,9 +275,10 @@ profesores2 %>% ggplot(aes(edad)) +
 ]]
 ]
 
-.footnote[
-[Referencias de ggplot2](https://ggplot2.tidyverse.org/reference/) | [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)
-]
+---
+
+background-image: url("img/geoms.png")
+background-size: contain
 
 ---
 
@@ -338,61 +381,109 @@ profesores2 %>%
 
 ---
 
-# `r fontawesome::fa("chart-line")` Coordenadas y Escalas
+background-color: var(--azul-claro)
+class: middle, center, inverse
 
-## Coordenadas
-
-Son conjuntos que ubican puntos en el espacio. Generalmente, vemos las coordenadas como esquemas para mapear elementos de conjuntos para objetos geométricos.
-
-Las coordenadas más conocidas son las **coordenadas cartesianas**, donde el punto es ubicado en un plano cartesiano por su distancia a dos rectas que se cortan.
-
-Hay diferentes **sistemas de coordenadas**. ¿Por qué usar diferentes sistemas? Una razón es simplificar la visualización de gráficos.
-
-Las transformaciones de coordenadas pueden cambiar algunos gráficos curvilíneos a lineales. ggplot2 proporciona diferentes sistemas de coordenadas.
+`r fontawesome::fa("laptop-code", height = "3em")`
+## PRÁCTICA 4.1
 
 ---
 
-background-image: url("img/coordinate.png")
-background-size: contain
+# `r fontawesome::fa("pen")` Práctica 4.1
+
+1. Observe el dataset [millas](https://www.rdocumentation.org/packages/datos/versions/0.5.0/topics/millas) y recrea el código R necesario para generar los siguientes gráficos:
+
+.pull-left[
+```{r p1, echo=FALSE, fig.width=3, fig.height=2.5, eval=TRUE, message=FALSE, warning=FALSE}
+millas %>% ggplot(aes(x=cilindrada, y=autopista)) +
+    geom_smooth()
+```
+]
+
+.pull-right[
+```{r p2, echo=FALSE, eval=TRUE, fig.width=3, fig.height=2.5}
+millas %>% ggplot(aes(x=cilindrada, y=autopista)) +
+    geom_point() +
+    facet_wrap(~traccion)
+```
+]
 
 ---
 
-# `r fontawesome::fa("chart-line")` Coordenadas y Escalas
+# `r fontawesome::fa("chart-line")` Más Estética
 
-## Escalas
+.pull-left[
+Los gráficos pueden tener más de una **geometría**, en este caso tienen un gráfico de puntos y de forma superpuesta un gráfico de líneas suavizadas.
 
-Las **escalas** controlan los detalles de cómo los valores de los datos se traducen en propiedades visuales. Podemos anular las escalas predeterminadas para ajustar detalles como etiquetas de eje o claves de leyenda, o
-usar una traducción completamente diferente de datos a estética.
+```{r me1, echo=TRUE, eval=FALSE}
+millas %>% ggplot(aes(x = cilindrada, 
+                      y = autopista)) +
+    geom_point() +
+    geom_smooth()
+```
+]
 
-En general, podemos usar escalas para:
-   * modificar etiquetas de ejes, leyendas y gráficos,
-   * escalas de uso general,
-   * escalas de ubicación,
-   * escalas de color y relleno,
-   * escalas de forma,
-   * escalas de tamaño, entre otras...
-
----
-
-# `r fontawesome::fa("chart-line")` Coordenadas y Escalas
-
-## Escalas
-
-Uso con cualquier estética `aes()`:
-   * alpha, color
-   * fill
-   * linetype
-   * shape, size
-   
-**scale_\*_continous()** asigna valores continuos a valores visuales
-
-**scale_\*_discrete()** asigna valores discretos a valores visuales
-
+.pull-right[
+```{r me2, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+millas %>% ggplot(aes(x = cilindrada, y = autopista)) +
+    geom_point() +
+    geom_smooth()
+```
+]
 
 ---
 
-# `r fontawesome::fa("chart-line")` Temas visuales
+# `r fontawesome::fa("chart-line")` Más Estética
 
+.pull-left[
+Podemos visualizar más variables en las geometrías, agregando atributos **aesthetics** en la geometría.
+
+```{r me3, echo=TRUE, eval=FALSE}
+millas %>% ggplot(aes(x = cilindrada, 
+                      y = autopista)) +
+    geom_point(aes(color = clase,
+                   shape = traccion)) +
+    geom_smooth()
+```
+]
+
+.pull-right[
+```{r me4, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+millas %>% ggplot(aes(x = cilindrada, 
+                      y = autopista)) +
+    geom_point(aes(color = clase,
+                   shape = traccion)) +
+    geom_smooth()
+```
+]
+
+---
+
+# `r fontawesome::fa("chart-line")` Más Estética
+
+.pull-left[
+Podemos transformar los datos de una de las geometrías para visualizar observaciones o variables que queremos.
+
+```{r me5, echo=TRUE, eval=FALSE}
+millas %>% ggplot(aes(x = cilindrada, 
+                      y = autopista)) +
+    geom_point(aes(color = clase,
+                   shape = traccion)) +
+    geom_smooth(data = filter(millas, 
+                              fabricante == "toyota"))
+```
+]
+
+.pull-right[
+```{r me6, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+millas %>% ggplot(aes(x = cilindrada, 
+                      y = autopista)) +
+    geom_point(aes(color = clase,
+                   shape = traccion)) +
+    geom_smooth(data = filter(millas, 
+                              fabricante == "toyota"))
+```
+]
 
 ---
 
@@ -400,16 +491,21 @@ background-color: var(--azul-claro)
 class: middle, center, inverse
 
 `r fontawesome::fa("laptop-code", height = "3em")`
-## PRÁCTICA 3.1
+## PRÁCTICA 4.2
 
 ---
 
-# `r fontawesome::fa("pen")` Práctica 3.1
+# `r fontawesome::fa("pen")` Práctica 4.2
 
+1. Recrea el código R necesario para generar el siguiente gráfico
 
-1. Construir la siguiente tabla.
-
-
+```{r p3, echo=FALSE, fig.width=6, fig.height=2.5, eval=TRUE, message=FALSE, warning=FALSE}
+millas %>% ggplot(aes(x = cilindrada, 
+                      y = autopista)) +
+    geom_point(aes(color = traccion)) +
+    geom_smooth(aes(linetype = traccion),
+                se = FALSE)
+```
 
 ---
 
@@ -432,19 +528,316 @@ Los métodos estadísticos más importantes disponibles para los gráficos se di
 
 # `r fontawesome::fa("chart-line")` Transformaciones estadísticas
 
-Hay docenas de capas de **Stats** especificadas con un `stat_function`.
+Hay docenas de capas de **Stats** especificadas con un `stat_function`. La mayoría de los geoms y las estadísticas vienen en pares que casi siempre se usan en conjunto.
 
-Las variables calculadas (de la capa de **Stats**) se pueden mapear usando el atributo `stat()`.
+Las siguiente tabla contienen los pares entre geometrías y estadísticos que se usan en conjunto.
 
-Algunas funciones de **Stats**:
-   * `stat_ecdf()`: calcula la distribución acumulativa empírica
-   * `stat_ellipse()`: calcula elipses de confianza normales
-   * `stat_identity()`: deja los datos como están
-   * `stat_summary()` `stat_summary_bin()`: resume los valores $y$ en valores $x$ únicos/agrupados
-   * `stat_summary_2d()` `stat_summary_hex()`: contenedor y resúmenes en 2D
-   * `stat_unique()`: eliminar duplicados
-   * `stat_sf_coordinates()`: extrae las coordenadas de los objetos `sf`
-   * `stat()`: estética calculada
+.pull-left[
+| geometría           | estadístico         |
+|---------------------|---------------------|
+| `geom_bar()`        | `stat_count()`      |
+| `geom_bin2d()`      | `stat_bin_2d()`     |
+| `geom_boxplot()`    | `stat_boxplot()`    |
+| `geom_contour()`    | `stat_contour()`    |
+| `geom_count()`      | `stat_sum()`        |
+| `geom_density()`    | `stat_density()`    |
+| `geom_density_2d()` | `stat_density_2d()` |
+| `geom_hex()`        | `stat_hex()`        |
+]
+
+.pull-right[
+| geometría           | estadístico         |
+|---------------------|---------------------|
+| `geom_freqpoly()`   | `stat_bin()`        |
+| `geom_histogram()`  | `stat_bin()`        |
+| `geom_qq_line()`    | `stat_qq_line()`    |
+| `geom_qq()`         | `stat_qq()`         |
+| `geom_quantile()`   | `stat_quantile()`   |
+| `geom_smooth()`     | `stat_smooth()`     |
+| `geom_violin()`     | `stat_violin()`     |
+| `geom_sf()`         | `stat_sf()`         |
+]
+
+
+---
+
+# `r fontawesome::fa("chart-line")` Transformaciones estadísticas
+
+.pull-left[
+Empecemos con un gráfico de barras que aunque parece simple revela algo sutil sobre los gráficos.
+
+```{r te1, echo=TRUE, eval=FALSE}
+diamantes %>% ggplot(aes(x = corte)) +
+    geom_bar()
+```
+
+Por lo general, puedes usar geoms y estadísticas de forma intercambiable. Por ejemplo, puedes volver a crear la gráfica anterior usando `stat_count()` en lugar de `geom_bar()`:
+
+```{r te2, echo=TRUE, eval=FALSE}
+diamantes %>% ggplot(aes(x = corte)) +
+    stat_count()
+```
+
+]
+
+.pull-right[
+```{r te3, echo=FALSE, eval=TRUE}
+diamantes %>% ggplot(aes(x = corte)) +
+    stat_count()
+```
+]
+
+---
+
+# `r fontawesome::fa("chart-line")` Transformaciones estadísticas
+
+.pull-left[
+Puedes mostrar un gráfico de barras de proporciones, en lugar de un recuento:
+
+```{r te4, echo=TRUE, eval=FALSE}
+diamantes %>% ggplot(aes(x = corte, 
+                         y=stat(prop), 
+                         group=1)) +
+    stat_count()
+```
+]
+
+.pull-right[
+```{r te5, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+diamantes %>% ggplot(aes(x = corte, 
+                         y=stat(prop), 
+                         group=1)) +
+    stat_count()
+```
+]
+
+---
+
+# `r fontawesome::fa("chart-line")` Transformaciones estadísticas
+
+.pull-left[
+Puedes usar `stat_summary()` para resumir los valores de $y$ para cada valor único de $x$, para así resaltar el resumen que se está computando:
+
+```{r te6, echo=TRUE, eval=FALSE}
+diamantes %>% ggplot(aes(x = corte, 
+                         y=profundidad)) +
+    stat_summary(fun.min = min,
+                 fun.max = max,
+                 fun = median)
+```
+]
+
+.pull-right[
+```{r te7, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+diamantes %>% ggplot(aes(x = corte, 
+                         y=profundidad)) +
+    stat_summary(fun.min = min,
+                 fun.max = max,
+                 fun = median)
+```
+]
+
+---
+
+# `r fontawesome::fa("chart-line")` Coordenadas y Escalas
+
+Son conjuntos que ubican puntos en el espacio. Generalmente, vemos las coordenadas como esquemas para mapear elementos de conjuntos para objetos geométricos.
+
+Las coordenadas más conocidas son las **coordenadas cartesianas**, donde el punto es ubicado en un plano cartesiano por su distancia a dos rectas que se cortan.
+
+Hay diferentes **sistemas de coordenadas**. ¿Por qué usar diferentes sistemas? Una razón es simplificar la visualización de gráficos.
+
+Las transformaciones de coordenadas pueden cambiar algunos gráficos curvilíneos a lineales. ggplot2 proporciona diferentes sistemas de coordenadas.
+
+---
+
+background-image: url("img/coordinate.png")
+background-size: contain
+
+---
+
+# `r fontawesome::fa("chart-line")` Coordenadas y Escalas
+
+.panelset[
+.panel[.panel-name[coord_flip]
+.pull-left[
+```{r ce1, echo=TRUE, eval=TRUE, fig.height=1.8, fig.width=3}
+diamantes %>% ggplot(aes(x = corte, 
+                         y = precio)) +
+    geom_boxplot()
+```
+]
+.pull-right[
+```{r ce2, echo=TRUE, eval=TRUE, fig.height=1.7, fig.width=3}
+diamantes %>% ggplot(aes(x = corte, 
+                         y = precio)) +
+    geom_boxplot() +
+    coord_flip()
+```
+]
+]
+
+.panel[.panel-name[coord_polar]
+.pull-left[
+```{r ce3, echo=TRUE, eval=TRUE, fig.height=1.8, fig.width=3}
+diamantes %>% ggplot(aes(x = corte)) +
+    geom_bar() +
+    coord_flip()
+```
+]
+.pull-right[
+```{r ce4, echo=TRUE, eval=TRUE, fig.height=1.7, fig.width=3}
+diamantes %>% ggplot(aes(x = corte)) +
+    geom_bar() +
+    coord_polar()
+```
+]
+]]
+
+<!---
+
+# `r fontawesome::fa("chart-line")` Coordenadas y Escalas
+
+## Escalas
+
+Las **escalas** controlan los detalles de cómo los valores de los datos se traducen en propiedades visuales. Podemos anular las escalas predeterminadas para ajustar detalles como etiquetas de eje o claves de leyenda, o
+usar una traducción completamente diferente de datos a estética.
+
+En general, podemos usar escalas para:
+   * modificar etiquetas de ejes, leyendas y gráficos,
+   * escalas de uso general,
+   * escalas de ubicación,
+   * escalas de color y relleno,
+   * escalas de forma,
+   * escalas de tamaño, entre otras...
+
+
+# `r fontawesome::fa("chart-line")` Coordenadas y Escalas
+
+## Escalas
+
+Uso con cualquier estética `aes()`:
+   * alpha, color
+   * fill
+   * linetype
+   * shape, size
+   
+**scale_\*_continous()** asigna valores continuos a valores visuales
+
+**scale_\*_discrete()** asigna valores discretos a valores visuales
+
+
+# `r fontawesome::fa("chart-line")` Coordenadas y Escalas
+
+
+-->
+
+---
+
+# `r fontawesome::fa("chart-line")` Temas visuales
+
+El tema se usa para controlar todos los elementos que no son datos en la trama.
+
+**ggplot2** proporciona valores predeterminados para la capa del tema (puede dejarlo como está).
+
+Puede anular el tema predeterminado, por ejemplo, con:
+   - **theme_bw()** tema en blanco y negro
+   - **theme()** función para ajustar la configuración de temas individuales
+   - **element_** crea funciones para modificar la configuración del tema
+
+.pull-left[
+Temas completos:
+`theme_grey()`
+`theme_bw()`
+`theme_light()`
+`theme_dark()`
+`theme_classic()`
+`theme_void()`
+]
+
+.pull-right[
+Elementos de un tema:
+`margin()`
+`element_blank()`
+`element_rect()`
+`element_line()`
+`element_text()`
+...
+]
+
+---
+
+background-image: url("img/theme.png")
+background-size: contain
+
+---
+
+.pull-left[
+```{r tv1, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center'}
+diamantes %>% ggplot(aes(x = corte, 
+                         fill=corte)) +
+    geom_bar(alpha=0.8) +
+    scale_fill_brewer(palette = "Dark2") +
+    geom_text(aes(label=..count..), 
+              stat = 'count',
+              vjust=-0.5) +
+    theme_minimal() +
+    theme(legend.position = "bottom") +
+    labs(x = "Corte del diamante",
+         y = "Cantidad de diamantes",
+         title = "La cantidad de diamantes por tipo de corte",
+         subtitle = "Mayor cantidad de diamantes de corte ideal",
+         caption = "Datos de R.com",
+         fill = "Tipo de corte")
+```
+]
+
+.pull-right[
+```{r tv2, echo=TRUE, eval=FALSE}
+diamantes %>% ggplot(aes(x = corte, 
+                         fill=corte)) +
+    geom_bar(alpha=0.8) +
+    scale_fill_brewer(palette = "Dark2") +
+    geom_text(aes(label=..count..), 
+              stat = 'count',
+              vjust=-0.5) +
+    theme_minimal() +
+    theme(legend.position = "bottom") +
+    labs(x = "Corte del diamante",
+         y = "Cantidad de diamantes",
+         title = "La cantidad de diamantes por tipo de corte",
+         subtitle = "Mayor cantidad de diamantes de corte ideal",
+         caption = "Datos de R.com",
+         fill = "Tipo de corte")
+```
+]
+
+---
+
+background-color: var(--azul-claro)
+class: middle, center, inverse
+
+`r fontawesome::fa("laptop-code", height = "3em")`
+## PRÁCTICA 4.3
+
+---
+
+# `r fontawesome::fa("pen")` Práctica 4.3
+
+1. Construir un gráfico de acuerdo a la gramática de los gráficos de `ggplot2`.
+
+2. Guarda el gráfico en tu computadora en un archivo de extensión `.png`.
+
+---
+
+# `r fontawesome::fa("chart-line")` Algunos sitios de interés
+
+* [Códigos visualizaciones desafío #30díasdegráficos](https://github.com/sporella/nightingale)
+
+* [#30DayMapChallenge](https://github.com/sporella/30daymap)
+
+* [Gráficos Estadísticos con R](https://cran.r-project.org/doc/contrib/grafi3.pdf)
+
 
 ---
 
@@ -455,7 +848,7 @@ class: middle, center, inverse
 <br>
 
 # **¡FIN!**
-## Importación y Orden de los Datos en R
+## Análisis Exploratorio de Datos
 
 ### Síguenos
 

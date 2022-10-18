@@ -412,3 +412,8 @@ encuestado6
 ## y si condera que la atención a la diversidad es necesaria.
 
 profesores2[5,c("Genero", "Edad", "AD_es_necesaria")]
+
+## para exportar archivos spss y stata
+
+write_sav(profesores2, "data/profesores_spss.sav")
+write_dta(profesores2, "data/profesores_stata.dta")

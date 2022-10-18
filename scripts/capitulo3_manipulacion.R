@@ -82,6 +82,12 @@ profesores2 %>%
     select(edad, alumnos, niveldocencia, material) %>% 
     view()
 
+## para filtrar fechas
+months(profesores2$fecha) # extrae el mes de la columna
+day(profesores2$fecha) # extrae el día de la columna
+profesores2 %>% 
+    filter(months(fecha)=="julio" & day(fecha)==2) %>% 
+    view()
 
 ## MUTATE() ----------------------------------------------------------------
 ## Delimitar nuestros datos a la población masculina que tiene
@@ -94,6 +100,13 @@ profesores2 %>%
     select(c(1:7, sinNEE, 14)) %>% 
     view()
 
+## aumentar columna con el día en que los profesores
+## llenaron la encuesta 
+profesores2 %>% 
+    mutate(mesencuesta=months(fecha)) %>% 
+    filter(sexo=="Masculino" & (edad %in% c(30,31,32))) %>% 
+    select(c(1:7, 14, mesencuesta)) %>% 
+    view()
 
 ## SUMMARISE() -------------------------------------------------------------
 ## Indicador 1: Número promedio de estudiantes por profesor
