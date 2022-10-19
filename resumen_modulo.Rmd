@@ -1,0 +1,78 @@
+---
+title: "Resumen del módulo de Manejo de Software"
+subtitle: "Programa Internacional de Estadística Aplicada  a la Investigación Científica"
+author: "Linda Cabrera"
+date: "2022-10-17"
+output: 
+  html_document:
+    toc: TRUE               # incluye o no el indice
+    toc_float: TRUE         # incluye o no indice flotante
+    theme: "flatly"    # especifica el tema Bootstrap
+    highlight: textmate      # resaltado de sintaxis
+    number_sections: TRUE   # enumerar las secciones
+---
+
+Este documento contiene un resumen del módulo de Manejo de Software del Programa Internacional de Estadística Aplicada  a la Investigación Científica que se fue construyendo con los estudiantes para el aprendizaje de `rmarkdown`.
+
+
+# Profesoras
+
+Gabriela Castro Centeno y Linda Cabrera Orellana son las profesoras que impartieron el módulo.
+
+# Contenido del módulo
+
+El módulo inició el lunes 3 de octubre de 2022 y finalizará el jueves 20 de octubre de 2022, abarcó los siguientes temas:
+
+1. Introducción a R
+7. Introducción a R Commander
+3. Introducción a SPSS
+4. RStudio
+    1. Introducción a RStudio
+    2. Importación y orden de los datos en R
+    7. Manipulación de datos en R
+    6. Análisis exploratorio de datos
+    5. Comunicando resultados en R
+
+El módulo tiene una duración de 25 horas y en cada capítulo de Rstudio se profundizaron temas relevantes para el contenido del Programa Internacional de Estadística Aplicada  a la Investigación Científica. Por ejemplo en el capítulo de Importación y orden de los datos en R se revisaron los siguientes temas:
+
+* Calidad de los datos
+* Importar datos
+   * Importar archivos `.csv`
+   * Importar desde Excel
+   * Importar desde SPSS y STATA
+* Estructuras de datos
+   * Vectores
+   * Data.frames (Tibbles)
+   * Funciones básicas
+* Tipos de datos
+   * Numéricos
+   * Cadena de caracteres
+   * Factores
+   * Fechas y Horas
+
+
+# RStudio
+
+En la introducción de la parte de RStudio recordamos una frase de Hadley Wickhman para recordar que aprender R es aprender un nuevo idioma por lo que necesita práctica y paciencia:
+
+> *"Cuando comienzas a programar, es fácil sentirte realmente frustrado... Es solo una parte natural de la programación, le sucede a todos y se vuelve cada vez menos con el tiempo. No te culpes. Solo tómate un descanso, haz algo divertido y luego regresa e inténtalo de nuevo más tarde."*
+(Hadley Wickham)
+
+
+## Introducción a RStudio
+
+1. Descargamos RStudio en el siguiente [link](https://www.rstudio.com/products/rstudio/download/)
+
+2. Instalamos RStudio en nuestras computadoras
+
+3. Conocimos el entorno de RStudio
+
+4. Aprendimos a instalar y cargar paquetes
+
+5. Podemos usar R como una calculadora, donde podemos hacer operaciones desde muy sencillas a muy complicadas. Por ejemplo puedo calcular sin problema: $$\sqrt{23^3+10}-\dfrac{2}{3}+ \ln(1) - e^3$$
+
+El material de este capítulo se encuentra en [Introducción a RStudio](https://lindajzmin.github.io/r-research/intro_rstudio.html)
+
+
+
+
