@@ -129,34 +129,140 @@ millas %>% ggplot(aes(x = cilindrada,
 
 view(diamantes)
 
+## diferencias entre datos que pertenecen a la data y 
+## datos transformados
+
+## hacemos una selección de los datos para no trabajar con
+## las 53940 observaciones 
+buenosD <- diamantes %>% 
+    filter(corte=="Bueno" & color=="D")
+
+## graficamos geom_point, geom_line() y geom_smooth
+## geom_smooth a diferencia de los otros transforma los datos
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point() +
+    geom_line() +
+    geom_smooth()
+
+## --Cada geom_ tiene un stat por default--
+## Si incluimos 'stat' en el geom_ podemos transformar nuestros datos
+## observamos el gráfico de puntos
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point()
+
+## agregamos un stat de identity y no pasa nada porque 
+## geom_point es una gráfica que muestra los datos tal cual
+## y el identity trabaja con el geom_point
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point(stat = "identity")
+
+## agregando un stat de smooth a geom_point
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point(stat = "smooth")
+
+## agregando un stat de identity a geom_smooth no realiza transformación de datos
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_smooth(stat = "identity")
+
+## --Cada stat tiene un geom_ por default--
 ## gráfico de barras
-diamantes %>% ggplot(aes(x = corte)) +
+buenosD %>% ggplot(aes(x = claridad)) +
     geom_bar()
 
 ## el mismo gráfico con stat_count()
-diamantes %>% ggplot(aes(x = corte)) +
+buenosD %>% ggplot(aes(x = claridad)) +
     stat_count()
 
 ## Muestra un gráfico de barras de proporciones, 
 ## en lugar de un recuento
 ## especificar en el eje y = stat(prop) y group=1
-diamantes %>% ggplot(aes(x = corte, 
+buenosD %>% ggplot(aes(x = claridad, 
                          y=stat(prop), 
                          group=1)) +
     stat_count()
 
 ## Usar `stat_summary()` para resumir los valores
 ## de $y$ para cada valor único de $x$,
-diamantes %>% ggplot(aes(x = corte, 
-                         y=profundidad)) +
-    stat_summary(fun.min = min,
+buenosD %>% ggplot(aes(x = claridad,
+                         y = precio)) +
+    geom_point(alpha=0.3,  
+               color="turquoise4") +
+    stat_summary(fun.min = min, 
                  fun.max = max,
-                 fun = median)
+                 fun=median, 
+                 size=0.8, 
+                 color="salmon")
+
+colors()
+
+## Histograma
+# para crear un histograma de frecuencias absolutas
+buenosD %>% ggplot(aes(x=precio)) +
+    geom_histogram()
+
+buenosD %>% ggplot(aes(x=precio)) +
+    geom_histogram(aes(y=stat(count/max(count))))
+
+# para modificar los rangos con bin número de rangos
+buenosD %>% ggplot(aes(x=precio)) +
+    geom_histogram(aes(y=stat(count)),
+                   bins = 10)
+
+# para modificar los rangos con binwidth ancho de rangos
+buenosD %>% ggplot(aes(x=precio)) +
+    geom_histogram(aes(y=stat(count)),
+                   binwidth = 3000)
+
+# dar color al histograma con fill y color
+buenosD %>% ggplot(aes(x=precio)) +
+    geom_histogram(aes(y=stat(count)),
+                   binwidth = 3000,
+                   color="ivory",
+                   fill="thistle3")
+
+max(buenosD$precio)
+min(buenosD$precio)
+
+## puedo invertir los ejes
+buenosD %>% ggplot(aes(y=precio)) +
+    geom_histogram(aes(x=stat(count)),
+                   binwidth = 3000,
+                   color="ivory",
+                   fill="thistle3")
+
+# puedo agregar un polígono de frecuencia
+buenosD %>% ggplot(aes(x=precio)) +
+    geom_histogram(aes(y=stat(count)),
+                   binwidth = 3000,
+                   color="ivory",
+                   fill="thistle3") +
+    geom_freqpoly(aes(y=stat(count)),
+                  binwidth = 3000,
+                  color="purple",
+                  size =1)
+
+# puedo agregar los valores de las frecuencias
+buenosD %>% ggplot(aes(x=precio)) +
+    geom_histogram(aes(y=stat(count)),
+                   binwidth = 3000,
+                   color="ivory",
+                   fill="thistle3") +
+    geom_freqpoly(aes(y=stat(count)),
+                  binwidth = 3000,
+                  color="purple",
+                  size =1) +
+    geom_text(stat = "bin",
+              binwidth= 3000,
+              aes(label=stat(round(count,2)),
+                  y=stat(count)),
+              nudge_y = 5)
 
 
-# COORDENADAS Y ESCALAS ---------------------------------------------------
-
-## COORDENADAS -------------------------------------------------------------
+buenosD %>% ggplot(aes(x=precio)) +
+    stat_bin()
+    
+    
+## COORDENADAS Y ESCALAS ---------------------------------------------------
 
 ## coord_flip
 diamantes %>% ggplot(aes(x = corte, 

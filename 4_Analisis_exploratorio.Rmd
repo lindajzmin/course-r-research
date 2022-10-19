@@ -521,33 +521,33 @@ Los métodos estadísticos más importantes disponibles para los gráficos se di
    * **bin** (particiones y mallas - para histogramas)
    * **summary** (estadísticas básicas: media, mediana, desviación, …)
    * **region** (límites de intervalo y región)
-   * **suave** (regresión, smoothing, interpolación y estimación de densidad)
+   * **smooth** (regresión, smoothing, interpolación y estimación de densidad)
    * **link** (métodos para calcular bordes de gráficos basados en un conjunto de nodos o puntos)
 
 ---
 
 # `r fontawesome::fa("chart-line")` Transformaciones estadísticas
 
-Hay docenas de capas de **Stats** especificadas con un `stat_function`. La mayoría de los geoms y las estadísticas vienen en pares que casi siempre se usan en conjunto.
-
-Las siguiente tabla contienen los pares entre geometrías y estadísticos que se usan en conjunto.
+Hay docenas de capas de **Stats** especificadas con un `stat_function`. La mayoría de los geoms y las estadísticas vienen en pares que casi siempre se usan en conjunto. La siguiente tabla contienen los pares entre geometrías y estadísticos que se usan en conjunto.
 
 .pull-left[
 | geometría           | estadístico         |
 |---------------------|---------------------|
 | `geom_bar()`        | `stat_count()`      |
+| `geom_point()`      | `stat_identity()`, `stat_sum()`   |
+| `geom_line()`       | `stat_identity()`   |
 | `geom_bin2d()`      | `stat_bin_2d()`     |
 | `geom_boxplot()`    | `stat_boxplot()`    |
 | `geom_contour()`    | `stat_contour()`    |
 | `geom_count()`      | `stat_sum()`        |
 | `geom_density()`    | `stat_density()`    |
 | `geom_density_2d()` | `stat_density_2d()` |
-| `geom_hex()`        | `stat_hex()`        |
 ]
 
 .pull-right[
 | geometría           | estadístico         |
 |---------------------|---------------------|
+| `geom_hex()`        | `stat_hex()`        |
 | `geom_freqpoly()`   | `stat_bin()`        |
 | `geom_histogram()`  | `stat_bin()`        |
 | `geom_qq_line()`    | `stat_qq_line()`    |
@@ -561,81 +561,240 @@ Las siguiente tabla contienen los pares entre geometrías y estadísticos que se
 
 ---
 
+.pull-left[
 # `r fontawesome::fa("chart-line")` Transformaciones estadísticas
 
-.pull-left[
-Empecemos con un gráfico de barras que aunque parece simple revela algo sutil sobre los gráficos.
+Crearemos un subconjunto de datos para mostrar las diferencias entre gráficos que muestran datos tal como lucen y gráficos que muestran datos transformados.
 
-```{r te1, echo=TRUE, eval=FALSE}
-diamantes %>% ggplot(aes(x = corte)) +
+Escogeremos las observaciones del dataset `diamantes` que sean de corte "Bueno" y de color "D" (mejor).
+
+```{r te8, echo=TRUE, eval=TRUE}
+buenosD <- diamantes %>% 
+    filter(corte=="Bueno" & color=="D")
+```
+
+Graficamos un `geom_point()`, `geom_line()` y `geom_smooth()` con nuestros datos `buenosD`
+]
+
+.pull-right[
+
+.panelset[
+.panel[.panel-name[Código]
+```{r te9, echo=TRUE, eval=FALSE}
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point() +
+    geom_line() +
+    geom_smooth()
+```
+]
+
+.panel[.panel-name[Gráfico]
+```{r te10, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point() +
+    geom_line() +
+    geom_smooth()
+```
+]
+]
+]
+
+
+---
+
+.pull-left[
+# `r fontawesome::fa("chart-line")` Transformaciones estadísticas
+
+Cada `geom_` tiene por default un `stat` (pag.28), argumento que me sirve para convertir un gráfico que muestra datos como son a un gráfico de datos transformados.
+
+```{r te11, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+## Gráfico 1: geom_
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point()
+
+## Gráfico 2: stat1
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point(stat = "identity")
+
+## Gráfico 3: stat2
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point(stat = "smooth")
+
+## Gráfico 4: stat3
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_smooth(stat = "identity")
+```
+
+]
+
+.pull-right[
+
+.panelset[
+.panel[.panel-name[geom_]
+```{r te12, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point()
+```
+]
+
+.panel[.panel-name[stat1]
+```{r te13, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point(stat = "identity")
+```
+]
+
+.panel[.panel-name[stat2]
+```{r te14, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_point(stat = "smooth")
+```
+]
+
+.panel[.panel-name[stat3]
+```{r te15, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+buenosD %>% ggplot(aes(x=quilate, y=precio)) +
+    geom_smooth(stat = "identity")
+```
+]
+]
+]
+
+---
+
+.pull-left[
+# `r fontawesome::fa("chart-line")` Transformaciones estadísticas
+
+También cada `stat` tiene por default un `geom_`, por ejemplo en el gráfico de barras (gráfico de transformación):
+
+```{r te1, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+## Gráfico de barras usando geom_bar()
+buenosD %>% ggplot(aes(x = claridad)) +
+    geom_bar()
+
+## Gráfico de barras usando stat_count()
+buenosD %>% ggplot(aes(x = claridad)) +
+    stat_count()
+
+## Gráfico de barras de proporción
+buenosD %>% ggplot(aes(x = claridad, 
+                         y=stat(prop), 
+                         group=1)) +
+    stat_count()
+```
+
+]
+
+.pull-right[
+
+.panelset[
+.panel[.panel-name[geom_]
+```{r te2, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+buenosD %>% ggplot(aes(x = claridad)) +
     geom_bar()
 ```
-
-Por lo general, puedes usar geoms y estadísticas de forma intercambiable. Por ejemplo, puedes volver a crear la gráfica anterior usando `stat_count()` en lugar de `geom_bar()`:
-
-```{r te2, echo=TRUE, eval=FALSE}
-diamantes %>% ggplot(aes(x = corte)) +
-    stat_count()
-```
-
 ]
 
-.pull-right[
-```{r te3, echo=FALSE, eval=TRUE}
-diamantes %>% ggplot(aes(x = corte)) +
+.panel[.panel-name[stat_]
+```{r te3, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+buenosD %>% ggplot(aes(x = claridad)) +
     stat_count()
 ```
 ]
 
----
-
-# `r fontawesome::fa("chart-line")` Transformaciones estadísticas
-
-.pull-left[
-Puedes mostrar un gráfico de barras de proporciones, en lugar de un recuento:
-
-```{r te4, echo=TRUE, eval=FALSE}
-diamantes %>% ggplot(aes(x = corte, 
+.panel[.panel-name[proporción]
+```{r te4, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+buenosD %>% ggplot(aes(x = claridad, 
                          y=stat(prop), 
                          group=1)) +
     stat_count()
 ```
 ]
 
-.pull-right[
-```{r te5, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
-diamantes %>% ggplot(aes(x = corte, 
-                         y=stat(prop), 
-                         group=1)) +
-    stat_count()
-```
+]
 ]
 
 ---
 
+.pull-left[
 # `r fontawesome::fa("chart-line")` Transformaciones estadísticas
 
-.pull-left[
 Puedes usar `stat_summary()` para resumir los valores de $y$ para cada valor único de $x$, para así resaltar el resumen que se está computando:
 
 ```{r te6, echo=TRUE, eval=FALSE}
-diamantes %>% ggplot(aes(x = corte, 
-                         y=profundidad)) +
-    stat_summary(fun.min = min,
+buenosD %>% ggplot(aes(x = claridad,
+                         y = precio)) +
+    geom_point(alpha=0.3,  
+               color="turquoise4") +
+    stat_summary(fun.min = min, 
                  fun.max = max,
-                 fun = median)
+                 fun=median, 
+                 size=0.8, 
+                 color="salmon")
 ```
 ]
 
 .pull-right[
 ```{r te7, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
-diamantes %>% ggplot(aes(x = corte, 
-                         y=profundidad)) +
-    stat_summary(fun.min = min,
+buenosD %>% ggplot(aes(x = claridad,
+                         y = precio)) +
+    geom_point(alpha=0.3,  
+               color="turquoise4") +
+    stat_summary(fun.min = min, 
                  fun.max = max,
-                 fun = median)
+                 fun=median, 
+                 size=0.8, 
+                 color="salmon")
 ```
 ]
+
+---
+
+.pull-left[
+# `r fontawesome::fa("chart-line")` Transformaciones estadísticas
+
+Graficaremos un histograma de frecuencias y un polígono de frecuencias con `geom_histogram()` y `geom_frefreqpoly()`
+
+```{r te5, echo=TRUE, eval=FALSE}
+buenosD %>% ggplot(aes(x=precio)) +
+    geom_histogram(aes(y=stat(count)),
+                   binwidth = 3000,
+                   color="ivory",
+                   fill="thistle3") +
+    geom_freqpoly(aes(y=stat(count)),
+                  binwidth = 3000,
+                  color="purple",
+                  size =1) +
+    geom_text(stat = "bin",
+              binwidth= 3000,
+              aes(label=stat(round(count,2)),
+                  y=stat(count)),
+              nudge_y = 5)
+```
+
+]
+
+.pull-right[
+```{r te16, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+buenosD %>% ggplot(aes(x=precio)) +
+    geom_histogram(aes(y=stat(count)),
+                   binwidth = 3000,
+                   color="ivory",
+                   fill="thistle3") +
+    geom_freqpoly(aes(y=stat(count)),
+                  binwidth = 3000,
+                  color="purple",
+                  size =1) +
+    geom_text(stat = "bin",
+              binwidth= 3000,
+              aes(label=stat(round(count,2)),
+                  y=stat(count)),
+              nudge_y = 5)
+```
+
+]
+
+
 
 ---
 
@@ -837,6 +996,8 @@ class: middle, center, inverse
 * [#30DayMapChallenge](https://github.com/sporella/30daymap)
 
 * [Gráficos Estadísticos con R](https://cran.r-project.org/doc/contrib/grafi3.pdf)
+
+* [Gráficos avanzados con ggplot](https://rua.ua.es/dspace/bitstream/10045/69767/1/Modulo_4_-_Graficos_avanzados_con_ggplot2.pdf)
 
 
 ---
