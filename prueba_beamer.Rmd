@@ -1,0 +1,141 @@
+---
+title: "UNIDAD I: GEOMETRÍA ANALÍTICA"
+subtitle: "Tema 1: Sistema de coordenadas rectangulares y lugares geométricos"
+author: "Linda Cabrera"
+date: "2022-10-20"
+output: 
+    beamer_presentation:
+        theme: "Hannover"
+        colortheme: "lily"
+        fonttheme: "structurebold"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Objetivo de la Unidad I
+
+  \begin{itemize}
+    \item<1-> Relacionar objetos y métodos algebraicos o analíticos con objetos y métodos geométricos, para la representación, resolución e interpretación analítica de problemas geométricos y viceversa, \emph{con laboriosidad}.
+  \end{itemize}
+  
+\vspace{0.5cm}
+  
+\textbf{Objetivos Específicos:}
+
+  \begin{itemize}
+    \item<2-> Reconocer al plano cartesiano como una herramienta útil e indispensable para la representación en forma gráfica de información dada mediante parejas ordenadas.
+    \end{itemize}
+  
+## Sistema de coordenadas rectangulares
+
+\begin{itemize}
+    \item Un \alert{sistema coordenado rectangular} se forma con dos rectas numéricas perpendiculares que se intersecan en el punto correspondiente al número 0 en cada recta. \pause
+    \item El punto de intersección se llama \alert{origen} y se representa con el símbolo O. \pause
+    \item La recta numérica horizontal se llama \alert{eje $x$} y la recta numérica vertical se llama \alert{eje $y$}. \pause
+    \item Esos dos ejes dividen al plano en cuatro regiones llamadas \alert{cuadrantes}, que llevan las marcas I, II, III y IV, como se muestra en la Figura \ref{fig1}. 
+\end{itemize}
+
+## Sistema de coordenadas rectangulares
+
+\begin{itemize}
+    \item Si no se especifican las marcas de intervalo en los ejes coordenados, como en la Figura \ref{fig1}, se puede suponer que una marca corresponde a una unidad, esto quiere decir que las escalas de los ejes coordenados pueden ser diferentes. \pause
+    \item Un plano que contiene un sistema coordenado rectangular se llama \alert{plano $xy$}, \alert{plano coordenado} o simplemente \alert{espacio bidimensional}. \pause
+    \item Si una línea vertical y otra horizontal que pasan por $P$ intersectan los ejes $x$ y $y$ en $a$ y $b$, respectivamente, entonces $P$ tiene coordenadas $(a, b)$, como en la Figura \ref{fig1}.
+\end{itemize}
+
+## Sistema de coordenadas rectangulares
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=4cm]{img/cuadrante.JPG}
+\includegraphics[width=5.2cm]{img/coordenadas.JPG}
+\caption{\footnotesize{a) Cuadrantes en el plano cartesiano, b) Coordenadas cartesianas}}
+\label{fig1}
+\end{figure}
+\vspace{0.5cm}
+
+
+## Sistema de coordenadas rectangulares
+
+\begin{exampleblock}{Ejemplo 1.1}
+  \textbf{\small{Grafique los puntos dados en el plano cartesiano } $(2,3), (0,1), (-3,2), (-4,-1), (3,-2)$}\\
+
+\centering
+\includegraphics[width=8cm]{img/ejemplo1.png}
+
+  \end{exampleblock}
+
+
+## Sistema de coordenadas rectangulares
+  
+\begin{alertblock}{Ejercicios propuestos}
+  \begin{enumerate}
+      \item \textbf{\small{Grafique los siguientes puntos en el plano cartesiano e indique en qué cuadrante se encuentran ubicados estos puntos: }} $(0,3)$, $(3,0)$, $(-2,2)$, $(-1,-\sqrt{5})$, $(\sqrt{2},-4)$, $(1/2,2)$, $(-3/2,-1)$, $(1,-5/2)$
+      \item \textbf{\small{Grafique el polígono que se forma al unir consecutivamente los puntos: }} $P_1 (1, 1)$, $P_2 (0, 4)$, $P_3 (2,2)$, $P_4 (3, 3)$, $P_5 (4, 2)$, $P_6 (6, 4)$, $P_7 (5, 1)$
+  \end{enumerate}
+  \end{alertblock}
+
+
+## Distancia entre dos puntos
+
+\begin{itemize}
+    \item \small{Para calcular la distancia entre cualesquiera dos puntos en el plano, existe una fórmula que tiene como base el \alert{Teorema de Pitágoras}, el cual dice que si $a$ y $b$ son las medidas de los dos catetos de un triángulo rectángulo y $c$ es la medida de su hipotenusa, entonces $$a^2 + b^2 = c^2$$ } \pause
+    \item \small{Ahora considérese cualesquiera dos puntos $P$ y $Q$, con coordenadas $(x_1, y_1)$ y $(x_2, y_2)$, respectivamente. La distancia entre $P$ y $Q$ vendrían a representar la hipotenusa del triangulo rectángulo, mientras que la distancia entre P y R y la distancia entre Q y R serían los catetos, tal como se muestra en la Figura \ref{fig2}.}
+\end{itemize}
+
+
+
+## Distancia entre dos puntos
+
+\begin{figure}[h]
+\centering
+    \includegraphics[width=8cm]{img/distancia.jpg}
+\caption{\footnotesize{Distancia entre dos puntos}}
+\label{fig2}
+\end{figure}
+
+
+
+## Distancia entre dos puntos
+
+\begin{itemize}
+    \item Cuando aplicamos el Teorema de Pitágoras y tomamos la raíz cuadrada principal de ambos lados, obtenemos la expresión siguiente para la \alert{fórmula de la distancia}
+    $$d(P,Q) = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$ \pause
+    \item La fórmula es válida incluso si los dos puntos pertenecen a la misma recta horizontal o a la misma recta vertical.
+\end{itemize}
+
+
+
+## Distancia entre dos puntos
+
+\begin{exampleblock}{Ejemplo 1.2}
+  \textbf{\small{Encuentre la distancia entre $P(-2,3)$ y $Q(4,-1)$}}\\
+ 
+ \begin{itemize}
+      \item \small{Primero identifique los puntos $x_1$, $x_2$, $y_1$ y $y_2$. Observe que no importa si tomo a $P$ o $Q$ como el primer punto, el cuadrado al momento de aplicar la fórmula hará que se desparezca el valor negativo.}
+      $$x_1 = -2, \quad x_2 = 4, \quad y_1 = 3, \quad y_2 = -1$$
+\item Luego reemplace los valores en la fórmula.
+
+\begin{align*}
+      d(P,Q) & = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2} \\
+             & = \sqrt{(4 - (-2)^2 + ((-1) - 3)^2}\\
+             & = \sqrt{36 + 16} = \sqrt{52} = 7,21\\
+             \end{align*}
+
+\end{itemize}
+
+  \end{exampleblock}
+  
+
+
+## Distancia entre dos puntos
+
+  \begin{alertblock}{Ejercicios propuestos}
+  \begin{enumerate}
+      \item \textbf{\small{Encuentre la distancia entre $P(\sqrt{2}, \sqrt{3})$ y $Q(\pi, \pi)$}}
+      \item \textbf{\small{Halle el perímetro de un triángulo cuyos vértices son los puntos: }} $P_1 (-4, -2)$, $P_2(-2, 5)$, $P_3 (6,2)$
+  \end{enumerate}
+  \end{alertblock}
