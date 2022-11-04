@@ -1,0 +1,91 @@
+---
+title: "Taller: Módulo Manejo de Software"
+subtitle: "Programa Internacional de Estadística aplicada a la Investigación Científica"
+author: "Linda Cabrera Orellana"
+date: "Noviembre 02, 2022"
+output: html_document
+---
+
+```{r configuracion, include = FALSE}
+library(tidyverse)
+library(kableExtra)
+
+knitr::opts_chunk$set(echo=FALSE,
+               warning=FALSE,
+               message = FALSE)
+```
+
+
+<br>
+
+Cree un archivo `rmarkdown` con salida `html_document`, con el objetivo de que al final sea publicado en `RPubs`. Siga los siguientes pasos en orden.
+
+<br>
+
+1. Cargue el conjunto de datos "BasePrograma.xlsx" a RStudio. El archivo se encuentra en la [carpeta compartida](https://drive.google.com/drive/folders/1YeYxnfAHyuT_z-GKec4BFQ_kPyY3_80e) del Programa. **(0,5 puntos)**
+
+```{r load, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+library(readxl)
+baseprograma <- read_excel("data/BasePrograma.xlsx")
+```
+
+
+2. Modifique las observaciones de la variable `Genero` para que se muestre el texto, para esto usa la función `transmute()` de la librería `dplyr`. `transmute()` agrega una nueva variable y corrige las existentes. Muestra el código y las primeras 5 filas del conjunto de datos para que verifiques que el cambió se realizó correctamente. Prueba con el siguiente código: **(0,75 puntos)**
+
+```{r trans1, echo=TRUE, eval=TRUE}
+library(tidyverse)
+baseprograma$Genero <- transmute(baseprograma,
+                                 Genero=case_when(Genero == 1 ~ "Mujer",
+                                                  Genero == 2 ~ "LGBTI",
+                                                  Genero == 3 ~ "Hombre"))
+```
+
+
+3. Modifique la variable `¿Tiene Mascota?`, donde 1 es Si y 0 es No. Guíese de la resolución del numeral anterior. **(1 punto)**
+
+```{r trans2, echo=FALSE, eval=TRUE}
+baseprograma$`Tiene Mascota` <- transmute(baseprograma,
+                                `Tiene Mascota`=case_when(`Tiene Mascota` == 1 ~ "Si",
+                                                          `Tiene Mascota` == 0 ~ "No"))
+```
+
+
+4. Corrija el tipo de dato de la variable `Nivel de Escolaridad`. Verique la estructura del conjunto de datos con `str()`. **(1,75 puntos)**
+
+```{r fact, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+baseprograma$`Nivel de Escolaridad` <- factor(baseprograma$`Nivel de Escolaridad`,
+                                              levels = c("Colegio", "Pregrado", "Posgrado"))
+```
+
+
+5. Recree el código R para generar la siguiente tabla: **(2,5 puntos)**
+
+```{r tab, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+kbl(
+    baseprograma %>% 
+        group_by(`Estado Civil`) %>% 
+        summarise("Total de Encuestados" = n(),
+                  "Edad (mean)" = round(mean(Edad)),
+                  "Estatura (min)" = min(Estatura),
+                  "Personas en cuarentena (max)" = max(`Personas en cuarentena`)),
+    caption = "Tabla 1. Resumen descriptivo por Estado Civil del Encuestado"
+    ) %>% 
+    kable_minimal()
+```
+
+
+6. Recree el código R para generar la siguiente gráfica: **(3 puntos)**
+
+```{r grap, echo=FALSE, eval=TRUE}
+baseprograma %>% 
+    ggplot(aes(x=`Nivel de Escolaridad`, y=Edad)) +
+    geom_boxplot(aes(fill=`Nivel de Escolaridad`),
+                 alpha=0.5) +
+    geom_point(alpha=0.3) +
+    theme_minimal() +
+    labs(title = "Edades por el Nivel de Escolaridad",
+         caption = "Fuente: https://see-ec.org/wordpress/",
+         fill = "Nivel de escolaridad")
+```
+
+7. Publique la resolución de su prueba en `RPubs`. **(0,5 puntos)**
