@@ -89,3 +89,5 @@ baseprograma %>%
 ```
 
 7. Publique la resolución de su prueba en `RPubs`. **(0,5 puntos)**
+
+Enviar la resolución al correo `lindaj.cabrera@gmail.com` hasta el lunes 14 de noviembre de 2022.
